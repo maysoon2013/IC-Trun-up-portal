@@ -35,6 +35,109 @@ else
 
 }
 
+//navigate to time and management page by clicking administration
+
+IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a/span"));
+administration.Click();
+
+//click on time and material
+IWebElement timeAndMaterial = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));
+timeAndMaterial.Click();
+
+// cliock on Create New button/link
+IWebElement createNew = driver.FindElement(By.XPath("//*[@id=\"container\"]/p/a"));
+createNew.Click();
+
+//Click on Material Icon
+IWebElement materialIcon = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
+materialIcon.Click();
+
+//Click on Time
+IWebElement time = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
+time.Click();
+
+//Click on Code Text box and type the code
+IWebElement codeTextBox = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
+codeTextBox.SendKeys("2022");
+//Click on Description Text Box and type description
+IWebElement descriptionTextBox = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
+descriptionTextBox.SendKeys("September2022");
+
+//Click on Price per Unit and type the pric
+IWebElement price = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+price.Click();
+IWebElement priccTextBox = driver.FindElement(By.XPath("//*[@id=\"Price\"]"));
+priccTextBox.SendKeys("$100");
+
+//Click on save button
+IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
+saveButton.Click();
+Thread.Sleep(1000);
+
+//Check if user able to create new time & material
+
+//click on last Page icon
+IWebElement lastpageIcon = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+lastpageIcon.Click();
+
+Thread.Sleep(1000);
+
+IWebElement newrecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+if (newrecord.Text=="September2022")
+{
+    Console.WriteLine(" User successfully add new time and materials, Test Pass ");
+}
+
+else
+{
+    Console.WriteLine("user Unable to add, Test failed");
+}
+
+Thread.Sleep(1000);
+//Click on Edit button
+IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[4]/td[5]/a[1]"));
+editButton.Click();
+
+//Enter new price on Price text box
+IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+newPrice.Click();
+IWebElement newPriccTextBox = driver.FindElement(By.XPath("//*[@id=\"Price\"]"));
+newPriccTextBox.Clear();
+
+IWebElement newPrice1 = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+newPrice1.Click();
+IWebElement newPriccTextBox1 = driver.FindElement(By.XPath("//*[@id=\"Price\"]"));
+newPriccTextBox1.SendKeys("$250");
+
+//Click on save button after Edit
+IWebElement saveButton1 = driver.FindElement(By.Id("SaveButton"));
+saveButton1.Click();
+
+Thread.Sleep(1000);
+
+//click on last Page icon
+IWebElement lastpageIcon1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+lastpageIcon1.Click();
+
+//click on Delete button for deleting item
+IWebElement deletebutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[4]/td[5]/a[2]"));
+deletebutton.Click();
+
+driver.SwitchTo().Alert().Accept(); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
