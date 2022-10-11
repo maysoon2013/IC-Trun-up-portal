@@ -51,7 +51,7 @@ createNew.Click();
 //Click on Material Icon
 IWebElement materialIcon = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
 materialIcon.Click();
-
+Thread.Sleep(1000);
 //Click on Time
 IWebElement time = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
 time.Click();
@@ -93,9 +93,9 @@ else
     Console.WriteLine("user Unable to add, Test failed");
 }
 
-Thread.Sleep(1000);
+Thread.Sleep(2000);
 //Click on Edit button
-IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[4]/td[5]/a[1]"));
+IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
 editButton.Click();
 
 //Enter new price on Price text box
@@ -109,21 +109,50 @@ newPrice1.Click();
 IWebElement newPriccTextBox1 = driver.FindElement(By.XPath("//*[@id=\"Price\"]"));
 newPriccTextBox1.SendKeys("$250");
 
+Thread.Sleep(500);
+
 //Click on save button after Edit
-IWebElement saveButton1 = driver.FindElement(By.Id("SaveButton"));
+IWebElement saveButton1 = driver.FindElement(By.XPath("//*[@id=\"SaveButton\"]"));
 saveButton1.Click();
 
-Thread.Sleep(1000);
+//Check if User able to Edit Time & material new record
 
+Thread.Sleep(1000);
 //click on last Page icon
 IWebElement lastpageIcon1 = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
 lastpageIcon1.Click();
 
-//click on Delete button for deleting item
-IWebElement deletebutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[4]/td[5]/a[2]"));
-deletebutton.Click();
+//Check User able to edit new time & material record
+IWebElement updatedPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+if(updatedPrice.Text=="$250.00")
+    {
+    Console.WriteLine("User successfully edited new pric");
+}
+else
+{
+    Console.WriteLine("user unable to Edited new price");
+}
 
-driver.SwitchTo().Alert().Accept(); 
+//click on Delete button for deleting item
+IWebElement deletebutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+deletebutton.Click();
+//Handling Alert
+driver.SwitchTo().Alert().Accept();
+
+Thread.Sleep(500);
+
+//Check If user successfully able to delete the Item
+IWebElement lastRecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+if (lastRecord.Text=="Detail description 1010")
+{
+    Console.WriteLine(" User successfully deleted the record, Test Pass ");
+}
+
+else
+{
+    Console.WriteLine("user Unable to delete the record, Test failed");
+}
+
 
 
 
